@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
      {6, 3},
      {9, 5}};
 
-    ChartView *chartView = new ChartView();
+    std::unique_ptr<ChartView> chartView = std::make_unique<ChartView>();
 
     chartView->addSeriesToList("series1", arr1);
     chartView->addSeriesToList("series2", arr2);
