@@ -1,39 +1,36 @@
 #include "chartview.h"
 
-void ChartView::plot()
-{
-    QScatterSeries *series0 = new QScatterSeries();
-    series0->setName("scatter1");
-    series0->setMarkerShape(QScatterSeries::MarkerShapeCircle);
-    series0->setMarkerSize(10.0);
+void ChartView::addSeries(std::string seriesName, xt::xarray<double> dataPoints){
+    std::unique_ptr<QScatterSeries> series = std::make_unique<QScatterSeries>();
+    series->setName(seriesName.data());
+    series->setMarkerShape(QScatterSeries::MarkerShapeCircle);
+    series->setMarkerSize(10.0);
 
-    QScatterSeries *series1 = new QScatterSeries();
-    series1->setName("scatter2");
-    series1->setMarkerShape(QScatterSeries::MarkerShapeCircle);
-    series1->setMarkerSize(10.0);
+    int numPoints = static_cast<int>(dataPoints.shape(0));
+    for (int i = 0; i < numPoints; ++i){
+        auto dataPoint = xt::view(dataPoints, i, xt::all());
+        *series << QPointF(dataPoint(0), dataPoint(1));
+    }
 
-    QScatterSeries *series2 = new QScatterSeries();
-    series2->setName("scatter3");
-    series2->setMarkerShape(QScatterSeries::MarkerShapeCircle);
-    series2->setMarkerSize(10.0);
+    this->seriesList.emplace_back(std::move(series));
+}
 
-    series0->append(0, 6);
-    series0->append(2, 4);
-    series0->append(3, 8);
-    series0->append(7, 4);
-    series0->append(10, 5);
+void ChartView::plotChart(){
+    this->setRenderHint(QPainter::Antialiasing);
 
-    *series1 << QPointF(1, 1) << QPointF(3, 3) << QPointF(7, 6) << QPointF(8, 3) << QPointF(10, 2);
-    *series2 << QPointF(1, 5) << QPointF(4, 6) << QPointF(6, 3) << QPointF(9, 5);
+    for (auto& series: this->seriesList){
+        this->chart()->addSeries(series.get());
+    }
 
-    setRenderHint(QPainter::Antialiasing);
-    chart()->addSeries(series0);
-    chart()->addSeries(series1);
-    chart()->addSeries(series2);
+    this->chart()->setTitle("Simple scatterchart example");
+    this->chart()->createDefaultAxes();
+    this->chart()->setDropShadowEnabled(false);
+    this->chart()->legend()->setMarkerShape(QLegend::MarkerShapeFromSeries);
+}
 
-    chart()->setTitle("Simple scatterchart example");
-    chart()->createDefaultAxes();
-    chart()->setDropShadowEnabled(false);
-
-    chart()->legend()->setMarkerShape(QLegend::MarkerShapeFromSeries);
+void ChartView::showChart(){
+    this->plotChart();
+    this->window.setCentralWidget(this);
+    this->window.resize(400, 300);
+    this->window.show();
 }

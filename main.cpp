@@ -1,5 +1,3 @@
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QMainWindow>
 #include "chartview.h"
 
 QT_CHARTS_USE_NAMESPACE
@@ -8,21 +6,35 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//![4]
-    ChartView *chartView = new ChartView();
-    chartView->plot();
-    QMainWindow window;
-    window.setCentralWidget(chartView);
-    window.resize(400, 300);
-    window.show();
+    xt::xarray<double> arr1 =
+    {{0, 6},
+     {2, 4},
+     {3, 8},
+     {7, 4},
+     {10, 5}};
 
-    ChartView *chartView2 = new ChartView();
-    chartView2->plot();
-    QMainWindow window2;
-    window2.setCentralWidget(chartView2);
-    window2.resize(700, 400);
-    window2.show();
-//![4]
+    xt::xarray<double> arr2 =
+    {{1, 1},
+     {3, 3},
+     {7, 6},
+     {8, 3},
+     {10, 2}};
+
+    xt::xarray<double> arr3 =
+    {{1, 5},
+     {4, 6},
+     {6, 3},
+     {9, 5}};
+
+    ChartView *chartView = new ChartView();
+
+    chartView->addSeries("series1", arr1);
+    chartView->addSeries("series2", arr2);
+    chartView->addSeries("series3", arr3);
+
+    chartView->plotChart();
+
+    chartView->showChart();
 
     return a.exec();
 }
