@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
 
     ChartView *chartView = new ChartView();
 
-    chartView->addSeries("series1", arr1);
-    chartView->addSeries("series2", arr2);
-    chartView->addSeries("series3", arr3);
+    chartView->addSeriesToList("series1", arr1);
+    chartView->addSeriesToList("series2", arr2);
+    chartView->addSeriesToList("series3", arr3);
 
     chartView->plotChart();
 
