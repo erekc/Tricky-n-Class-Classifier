@@ -4,6 +4,9 @@ project(Tricky-n-Class-Classifier LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+set(CMAKE_PREFIX_PATH "/home/erekryo/Qt5.14.2/5.14.2/gcc_64/lib/cmake/")
+set(xtensor_DIR "/usr/local/include")
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -16,8 +19,6 @@ find_package(Qt5 COMPONENTS Widgets Core Charts Gui REQUIRED)
 
 add_executable(Tricky-n-Class-Classifier
   main.cpp
-  chartview.cpp
-  chartview.h
 )
 
 target_include_directories(Tricky-n-Class-Classifier PUBLIC ${xtensor_INCLUDE_DIRS})
