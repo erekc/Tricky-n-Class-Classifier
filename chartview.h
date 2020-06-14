@@ -19,7 +19,8 @@ class ChartView : public QChartView
 {
     Q_OBJECT
 public:
-    explicit ChartView(QWidget *parent = 0);
+    explicit ChartView(QWidget *parent = 0) : QChartView(new QChart(), parent) {}
+    void plot();
 private:
     std::vector<std::unique_ptr<QScatterSeries>> series;
 };

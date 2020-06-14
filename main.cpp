@@ -10,12 +10,14 @@ int main(int argc, char *argv[])
 
 //![4]
     ChartView *chartView = new ChartView();
+    chartView->plot();
     QMainWindow window;
     window.setCentralWidget(chartView);
     window.resize(400, 300);
     window.show();
 
     ChartView *chartView2 = new ChartView();
+    chartView2->plot();
     QMainWindow window2;
     window2.setCentralWidget(chartView2);
     window2.resize(700, 400);

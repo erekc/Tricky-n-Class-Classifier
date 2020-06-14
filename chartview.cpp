@@ -1,7 +1,6 @@
 #include "chartview.h"
 
-ChartView::ChartView(QWidget *parent) :
-    QChartView(new QChart(), parent)
+void ChartView::plot()
 {
     QScatterSeries *series0 = new QScatterSeries();
     series0->setName("scatter1");
