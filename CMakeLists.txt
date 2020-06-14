@@ -23,6 +23,8 @@ add_executable(Tricky-n-Class-Classifier
   main.cpp
   chartview.cpp
   chartview.h
+  nndata.cpp
+  nndata.h
 )
 
 target_include_directories(Tricky-n-Class-Classifier PUBLIC ${xtensor_INCLUDE_DIRS})
