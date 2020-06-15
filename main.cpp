@@ -1,5 +1,6 @@
 #include "chartview.h"
 #include "nndata.h"
+#include "nntrainingdata.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -9,14 +10,11 @@ int main(int argc, char *argv[])
 
     NNData nndata = NNData(100, 2);
     nndata.generateData();
-    xt::xarray<double> data = nndata.getData();
+    nndata.showData();
 
-    std::unique_ptr<ChartView> chartView = std::make_unique<ChartView>();
-    chartView->addSeriesToList("nndata", data);
-
-    chartView->plotChart();
-
-    chartView->showChart();
+    NNTrainingData trainingData = NNTrainingData(100, 2, 3);
+    trainingData.generateData();
+    trainingData.showData();
 
     return a.exec();
 }
