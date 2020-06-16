@@ -42,7 +42,6 @@ void NNTrainingData::addClassDataToChart(){
         int sum = 0;
         for (size_t j = 0; j < indices.size(); ++j){
             auto row = xt::row(this->data, indices[j]);
-            //std::cout << row << std::endl;
             for (int k = 0; k < this->dimension; ++k){
                 classSeries(j, k) = row(0, k);
             }
