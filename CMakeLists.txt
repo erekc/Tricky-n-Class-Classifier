@@ -29,6 +29,8 @@ add_executable(Tricky-n-Class-Classifier
   nntrainingdata.h
   walker.cpp
   walker.h
+  spiralwalker.cpp
+  spiralwalker.h
 )
 
 target_include_directories(Tricky-n-Class-Classifier PUBLIC ${xtensor_INCLUDE_DIRS})
