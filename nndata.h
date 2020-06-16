@@ -13,15 +13,20 @@ class NNData
 {
 public:
     NNData();
-    NNData(int numSamples, int dimension) : numSamples(numSamples), dimension(dimension), chartView(std::make_unique<ChartView>()){}
-    xt::xarray<double> getData(){ return this->data; }
+    NNData(int numSamples, int dimension);
+    ~NNData();
+    NNData(const NNData& source);
+    NNData& operator=(const NNData& source);
+    NNData(NNData&& source);
+    NNData& operator=(NNData&& source);
+    xt::xarray<double> getData(){ return *(this->data); }
     virtual void generateData();
     void showData();
 protected:
-    xt::xarray<double> data;
+    xt::xarray<double>* data;
     int numSamples;
     int dimension;
-    std::unique_ptr<ChartView> chartView;
+    std::shared_ptr<ChartView> chartView;
 };
 
 #endif // NNDATA_H
