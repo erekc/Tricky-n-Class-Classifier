@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QWidget>
+#include <QMargins>
+#include <QRectF>
 #include <QtCharts/QChartView>
 #include <QtCharts/QScatterSeries>
 #include <QtCharts/QLegendMarker>
