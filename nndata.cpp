@@ -1,8 +1,5 @@
 #include "nndata.h"
 
-NNData::NNData(){
-    std::cout << "NNData Default Constructor" << std::endl;
-}
 NNData::NNData(int numSamples, int dimension) :
     numSamples(numSamples), dimension(dimension), chartView(std::make_shared<ChartView>()){
     std::vector<std::size_t> dataShape = {static_cast<size_t>(this->numSamples), static_cast<size_t>(this->dimension)};

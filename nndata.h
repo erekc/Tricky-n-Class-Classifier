@@ -12,7 +12,6 @@
 class NNData
 {
 public:
-    NNData();
     NNData(int numSamples, int dimension);
     ~NNData();
     NNData(const NNData& source);
