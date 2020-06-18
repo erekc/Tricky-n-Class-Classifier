@@ -11,13 +11,21 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     {
-        std::cout << "Rule of Five Test" << std::endl;
+        std::cout << "NNData Rule of Five Test" << std::endl;
         NNData nndata = NNData(100, 2);
         NNData nndata2 = NNData(100, 2);
         nndata2 = nndata;
         NNData nndata3(nndata);
-        NNData nndata4(std::move(NNData(100, 2)));
+        NNData nndata4(std::move(nndata2));
         nndata4 = std::move(nndata);
+        std::cout << "NNTrainingData Rule of Five Test" << std::endl;
+        NNTrainingData nntrainingdata = NNTrainingData(50, 2, 3);
+        NNTrainingData nntrainingdata2 = NNTrainingData(50, 2, 3);
+        nntrainingdata = nntrainingdata2;
+        NNTrainingData nntrainingdata3(nntrainingdata);
+        NNTrainingData nntrainingdata4(std::move(nntrainingdata2));
+        nntrainingdata4 = std::move(nntrainingdata);
+        std::cout << "End of Rule of Five Test Scope" << std::endl;
     }
 
     NNData nndata = NNData(100, 2);

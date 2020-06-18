@@ -12,8 +12,12 @@
 
 class NNTrainingData : public NNData {
 public:
-    NNTrainingData();
-    NNTrainingData(int numSamples, int dimension, int numClasses) : NNData(numSamples, dimension), numClasses(numClasses){}
+    NNTrainingData(int numSamples, int dimension, int numClasses);
+    ~NNTrainingData();
+    NNTrainingData(const NNTrainingData& source);
+    NNTrainingData& operator=(const NNTrainingData& source);
+    NNTrainingData(NNTrainingData&& source);
+    NNTrainingData& operator=(NNTrainingData&& source);
     void generateData() override;
     std::vector<int> getLabels() { return this->labels; }
 private:
