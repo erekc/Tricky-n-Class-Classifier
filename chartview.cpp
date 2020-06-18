@@ -1,6 +1,6 @@
 #include "chartview.h"
 
-void ChartView::addSeriesToList(std::string seriesName, xt::xarray<double> dataPoints){
+void ChartView::addSeriesToList(std::string seriesName, xt::xarray<double>& dataPoints){
     std::unique_ptr<QScatterSeries> series = std::make_unique<QScatterSeries>();
     series->setName(seriesName.data());
     series->setMarkerShape(QScatterSeries::MarkerShapeCircle);
@@ -22,7 +22,6 @@ void ChartView::plotChart(){
     for (it = this->seriesList.begin(); it != this->seriesList.end(); it++){
         this->chart()->addSeries((*it).get());
     }
-
     this->chart()->setTitle("Simple scatterchart example");
     this->chart()->createDefaultAxes();
     this->chart()->setDropShadowEnabled(false);

@@ -1,19 +1,22 @@
 #include "nntrainingdata.h"
 #include <typeinfo>
+#include <iostream>
 
 
 NNTrainingData::NNTrainingData(int numSamples, int dimension, int numClasses) :
-    NNData(numSamples, dimension), numClasses(numClasses){
+    NNData(numSamples, dimension), labels(new int[numSamples]), numClasses(numClasses) {
     std::cout << "NNTrainingData Constructor" << std::endl;
 }
 
 NNTrainingData::~NNTrainingData(){
+    delete[] this->labels;
     std::cout << "NNTrainingData Destructor" << std::endl;
 }
 
 NNTrainingData::NNTrainingData(const NNTrainingData& source) : NNData(source){
     this->numClasses = source.numClasses;
-    this->labels = source.labels;
+    this->labels = new int[source.numSamples];
+    std::memcpy(this->labels, source.labels, sizeof(int) * this->numSamples);
     std::cout << "NNTrainingData Copy Constructor" << std::endl;
 }
 
@@ -22,8 +25,10 @@ NNTrainingData& NNTrainingData::operator=(const NNTrainingData& source){
         return *this;
     }
     NNData::operator=(source);
+    delete[] this->labels;
+    this->labels = new int[source.numSamples];
+    std::memcpy(this->labels, source.labels, sizeof(int) * this->numSamples);
     this->numClasses = source.numClasses;
-    this->labels = source.labels;
     std::cout << "NNTrainingData Copy Assignment" << std::endl;
     return *this;
 }
@@ -31,6 +36,8 @@ NNTrainingData& NNTrainingData::operator=(const NNTrainingData& source){
 NNTrainingData::NNTrainingData(NNTrainingData&& source) : NNData(std::move(source)){
     this->numClasses = source.numClasses;
     this->labels = source.labels;
+    source.labels = nullptr;
+    source.numClasses = 0;
     std::cout << "NNTrainingData Move Constructor" << std::endl;
 }
 
@@ -39,18 +46,22 @@ NNTrainingData& NNTrainingData::operator=(NNTrainingData&& source){
         return *this;
     }
     NNData::operator=(std::move(source));
-    this->numClasses = source.numClasses;
+    delete[] this->labels;
     this->labels = source.labels;
+    this->numClasses = source.numClasses;
+    source.labels = nullptr;
+    source.numClasses = 0;
     std::cout << "NNTrainingData Move Assignment" << std::endl;
     return *this;
 }
 
 void NNTrainingData::generateData(){
-    std::vector<std::size_t> dataShape = {static_cast<size_t>(this->numSamples), static_cast<size_t>(this->dimension)};
-    *(this->data) = xt::xarray<double, xt::layout_type::row_major>(dataShape);
 
     std::default_random_engine generator;
     std::normal_distribution<double> distribution(0.0, 1.0);
+
+    delete[] this->labels;
+    this->labels = new int[this->numSamples];
 
     for (int i = 0; i < this->numSamples; ++i){
         int sum = 0;
@@ -59,19 +70,54 @@ void NNTrainingData::generateData(){
             sum += x;
             (*(this->data))(i, j) = 1.0 * x + 0.20 * distribution(generator);
         }
-        this->labels.push_back(sum);
+        this->labels[i] = sum;
     }
 
     this->addClassDataToChart();
 
 }
 
-void NNTrainingData::addClassDataToChart(){
+void NNTrainingData::generateSpiralingData(int classes, int dataPoints){
 
+    this->numClasses = classes;
+    this->numSamples = dataPoints * classes;
+
+    delete[] this->labels;
+    this->labels = new int[this->numSamples];
+
+    delete this->data;
+    std::vector<std::size_t> dataShape = {static_cast<size_t>(this->numSamples), 2};
+    this->data = new xt::xarray<double, xt::layout_type::row_major>(dataShape);
+
+    SpiralWalker spiralWalker = SpiralWalker();
+
+    std::default_random_engine generator;
+    std::normal_distribution<double> distribution(0.0, 1.0);
+
+    for (int i = 0; i < this->numClasses; ++i){
+
+        int* currentPoint = spiralWalker.getCurrentPoint();
+        int row = *(currentPoint + 0);
+        int col = *(currentPoint + 1);
+        for (int j = i * dataPoints ; j < (i + 1) * dataPoints; ++j){
+            double newRow = 1.0 * row + 0.2 * distribution(generator);
+            double newCol = 1.0 * col + 0.2 * distribution(generator);
+            (*(this->data))(j, 0) = newRow;
+            (*(this->data))(j, 1) = newCol;
+            this->labels[j] = i;
+        }
+        spiralWalker.walk();
+    }
+    this->addClassDataToChart();
+}
+
+void NNTrainingData::addClassDataToChart(){
     std::vector<std::vector<double>> classIndices;
+
     for (int i = 0; i < this->numClasses; ++i){
         classIndices.push_back(std::vector<double>());
     }
+
 
     for (int i = 0; i < this->numSamples; ++i){
         classIndices[this->labels[i]].push_back(i);
@@ -91,7 +137,6 @@ void NNTrainingData::addClassDataToChart(){
             }
             sum += 1;
         }
-
         this->chartView->addSeriesToList("class" + std::to_string(i), classSeries);
     }
     this->chartView->setRubberBand(QChartView::RectangleRubberBand);

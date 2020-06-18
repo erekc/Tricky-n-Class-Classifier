@@ -27,7 +27,7 @@ class ChartView : public QChartView
     Q_OBJECT
 public:
     explicit ChartView(QWidget *parent = 0) : QChartView(new QChart(), parent) {}
-    void addSeriesToList(std::string seriesName, xt::xarray<double> dataPoints);
+    void addSeriesToList(std::string seriesName, xt::xarray<double>& dataPoints);
     void plotChart();
     void showChart();
 private:

@@ -2,6 +2,7 @@
 #define NNTRAININGDATA_H
 
 #include "nndata.h"
+#include "spiralwalker.h"
 #include <cstdlib>
 #include <memory>
 #include <random>
@@ -19,10 +20,11 @@ public:
     NNTrainingData(NNTrainingData&& source);
     NNTrainingData& operator=(NNTrainingData&& source);
     void generateData() override;
-    std::vector<int> getLabels() { return this->labels; }
+    void generateSpiralingData(int classes, int dataPoints);
+    int* getLabels() { return this->labels; }
 private:
     void addClassDataToChart();
-    std::vector<int> labels;
+    int* labels;
     int numClasses;
 };
 
