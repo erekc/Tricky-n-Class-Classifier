@@ -21,6 +21,8 @@ public:
     xt::xarray<double> getData(){ return *(this->data); }
     virtual void generateData();
     void showData();
+    void writeToFile(std::string filename);
+    void loadFromFile(std::string filename);
 protected:
     xt::xarray<double>* data;
     int numSamples;

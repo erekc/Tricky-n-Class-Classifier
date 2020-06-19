@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
     std::cout << "NNTrainingData Test" << std::endl;
     NNTrainingData trainingData = NNTrainingData(100, 2, 3);
-    trainingData.generateSpiralingData(5, 50);
+    trainingData.generateSpiralingData(25, 50);
     trainingData.showData();
 
     std::cout << "Walker Tests" << std::endl;
