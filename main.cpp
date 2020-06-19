@@ -37,20 +37,24 @@ int main(int argc, char *argv[])
     nndata.loadFromFile("nndata.txt");
     std::cout << nndata.getData() << std::endl;
 
-//    std::cout << "NNTrainingData Test" << std::endl;
-//    NNTrainingData trainingData = NNTrainingData(100, 2, 3);
-//    trainingData.generateSpiralingData(25, 50);
-//    trainingData.showData();
+    std::cout << "NNTrainingData Test" << std::endl;
+    NNTrainingData trainingData = NNTrainingData(100, 2, 3);
+    trainingData.generateSpiralingData(3, 50);
+    std::cout << trainingData.getData() << std::endl << std::endl << std::endl;
+    trainingData.writeToFile("nntrainingdata.txt");
+    trainingData.loadFromFile("nntrainingdata.txt");
+    std::cout << trainingData.getData() << std::endl;
+    trainingData.showData();
 
-//    std::cout << "Walker Tests" << std::endl;
-//    Walker walker = Walker();
-//    walker.walk();
-//    walker.printCurrentPoint();
+    std::cout << "Walker Tests" << std::endl;
+    Walker walker = Walker();
+    walker.walk();
+    walker.printCurrentPoint();
 
-//    SpiralWalker spiralWalker = SpiralWalker();
-//    for (int i = 0; i < 14; i++){
-//        std::cout << spiralWalker.getCurrentPointAsString() << " Step: " << spiralWalker.getSteps() << std::endl;
-//        spiralWalker.walk();
-//    }
+    SpiralWalker spiralWalker = SpiralWalker();
+    for (int i = 0; i < 14; i++){
+        std::cout << spiralWalker.getCurrentPointAsString() << " Step: " << spiralWalker.getSteps() << std::endl;
+        spiralWalker.walk();
+    }
     return a.exec();
 }
