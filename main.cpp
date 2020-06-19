@@ -32,10 +32,18 @@ int main(int argc, char *argv[])
     NNData nndata = NNData(100, 2);
     nndata.generateData();
     nndata.showData();
+    std::cout << nndata.getData() << std::endl << std::endl << std::endl;
+    nndata.writeToFile("nndata.txt");
+    nndata.loadFromFile("nndata.txt");
+    std::cout << nndata.getData() << std::endl;
 
     std::cout << "NNTrainingData Test" << std::endl;
     NNTrainingData trainingData = NNTrainingData(100, 2, 3);
-    trainingData.generateSpiralingData(5, 50);
+    trainingData.generateSpiralingData(3, 50);
+    std::cout << trainingData.getData() << std::endl << std::endl << std::endl;
+    trainingData.writeToFile("nntrainingdata.txt");
+    trainingData.loadFromFile("nntrainingdata.txt");
+    std::cout << trainingData.getData() << std::endl;
     trainingData.showData();
 
     std::cout << "Walker Tests" << std::endl;

@@ -4,6 +4,8 @@
 #include "chartview.h"
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "xtensor/xarray.hpp"
 #include "xtensor/xio.hpp"
 #include "xtensor/xview.hpp"
@@ -21,6 +23,8 @@ public:
     xt::xarray<double> getData(){ return *(this->data); }
     virtual void generateData();
     void showData();
+    virtual void writeToFile(std::string filename);
+    virtual void loadFromFile(std::string filename);
 protected:
     xt::xarray<double>* data;
     int numSamples;

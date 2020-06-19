@@ -22,6 +22,8 @@ public:
     void generateData() override;
     void generateSpiralingData(int classes, int dataPoints);
     int* getLabels() { return this->labels; }
+    void writeToFile(std::string filename) override;
+    void loadFromFile(std::string filename) override;
 private:
     void addClassDataToChart();
     int* labels;

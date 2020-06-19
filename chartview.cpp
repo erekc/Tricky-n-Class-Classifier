@@ -5,6 +5,11 @@ void ChartView::addSeriesToList(std::string seriesName, xt::xarray<double>& data
     series->setName(seriesName.data());
     series->setMarkerShape(QScatterSeries::MarkerShapeCircle);
     series->setMarkerSize(10.0);
+    QColor color = QColor(this->r, this->g, this->b);
+    series->setColor(color);
+    this->r = static_cast<int>(2.0 * this->r) % 255;
+    this->g = static_cast<int>(1.625 * this->g) % 255;
+    this->b = static_cast<int>(1.25 * this->b) % 255;
 
     int numPoints = static_cast<int>(dataPoints.shape(0));
     for (int i = 0; i < numPoints; ++i){

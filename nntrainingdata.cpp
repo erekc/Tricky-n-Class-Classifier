@@ -81,6 +81,7 @@ void NNTrainingData::generateSpiralingData(int classes, int dataPoints){
 
     this->numClasses = classes;
     this->numSamples = dataPoints * classes;
+    this->dimension = 2;
 
     delete[] this->labels;
     this->labels = new int[this->numSamples];
@@ -140,4 +141,56 @@ void NNTrainingData::addClassDataToChart(){
         this->chartView->addSeriesToList("class" + std::to_string(i), classSeries);
     }
     this->chartView->setRubberBand(QChartView::RectangleRubberBand);
+}
+
+void NNTrainingData::writeToFile(std::string filename){
+    std::ofstream outputFile;
+    outputFile.open(filename);
+    if (outputFile.is_open()){
+        outputFile << this->numSamples << " " << this->dimension << std::endl;
+        for (int i = 0; i < this->numSamples; ++i){
+            auto row = xt::row(*(this->data), i);
+            for (int j = 0; j < this->dimension; ++j){
+                outputFile << row(0, j) << " ";
+            }
+            outputFile << this->labels[i] << std::endl;
+        }
+        outputFile.close();
+    }
+    else{
+        std::cout << "File could not be opened for writing. No data written." << std::endl;
+    }
+}
+
+void NNTrainingData::loadFromFile(std::string filename){
+    std::string line;
+    std::ifstream inputFile;
+    inputFile.open(filename);
+    if (inputFile.is_open()){
+
+        std::getline(inputFile, line);
+        std::istringstream ss(line);
+        ss >> this->numSamples;
+        ss >> this->dimension;
+
+        delete this->data;
+        std::vector<std::size_t> dataShape = {static_cast<size_t>(this->numSamples), static_cast<size_t>(this->dimension)};
+        this->data = new xt::xarray<double, xt::layout_type::row_major>(dataShape);
+        delete[] this->labels;
+        this->labels = new int[this->numSamples];
+
+        int row = 0;
+        while(std::getline(inputFile, line)){
+            std::istringstream rowstream(line);
+            rowstream >> (*(this->data))(row, 0);
+            rowstream >> (*(this->data))(row, 1);
+            rowstream >> this->labels[row];
+            row++;
+        }
+
+        inputFile.close();
+    }
+    else{
+        std::cout << "File could not be opened for reading. No data read." << std::endl;
+    }
 }
