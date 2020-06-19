@@ -81,6 +81,7 @@ void NNTrainingData::generateSpiralingData(int classes, int dataPoints){
 
     this->numClasses = classes;
     this->numSamples = dataPoints * classes;
+    this->dimension = 2;
 
     delete[] this->labels;
     this->labels = new int[this->numSamples];

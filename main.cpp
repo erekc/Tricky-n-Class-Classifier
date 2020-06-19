@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     NNData nndata = NNData(100, 2);
     nndata.generateData();
     nndata.showData();
+    nndata.writeToFile("nndata.txt");
 
     std::cout << "NNTrainingData Test" << std::endl;
     NNTrainingData trainingData = NNTrainingData(100, 2, 3);
