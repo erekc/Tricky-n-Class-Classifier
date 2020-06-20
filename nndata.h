@@ -15,7 +15,7 @@ class NNData
 {
 public:
     NNData(int numSamples, int dimension);
-    ~NNData();
+    virtual ~NNData();
     NNData(const NNData& source);
     NNData& operator=(const NNData& source);
     NNData(NNData&& source);
