@@ -33,5 +33,19 @@ add_executable(Tricky-n-Class-Classifier
   spiralwalker.h
 )
 
+add_executable(test
+    test.cpp
+    chartview.cpp
+    chartview.h
+    nndata.cpp
+    nndata.h
+    nntrainingdata.cpp
+    nntrainingdata.h
+    walker.cpp
+    walker.h
+    spiralwalker.cpp
+    spiralwalker.h
+)
+
 target_include_directories(Tricky-n-Class-Classifier PUBLIC ${xtensor_INCLUDE_DIRS})
 target_link_libraries(Tricky-n-Class-Classifier PUBLIC xtensor PRIVATE Qt5::Core Qt5::Widgets Qt5::Charts Qt5::Gui)
