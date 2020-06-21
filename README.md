@@ -1,1 +1,5 @@
 # Tricky n Class Classifier Data Generation
+
+### Introduction
+
+In exploring many of the project options, I decided to pursue one that stems from my experience in Intelligent Systems, particularly Multilayer Perceptrons. In brainstorming for my project, I decided that I wanted to pursue the construction of a simple 2-dimensional n-Class classifying MLP, which given data points, would predict the class of a 2d input vector. To do this, I first needed a way to generate random data so that the predictions can be graphed in a dense, regional manner. From this requirement came the inception of this project: creating a set of classes that can collectively generate different kinds of data and display the results. This idea was perfect for me, as this gives a great intro to C++ and is an involved way to build something upon which I can not only build more features, such as the MLP itself, but also continue to sharpen and strengthen my C++ skills. This project has been a fun way for me to not only complete my first C++ project, but also give me an introduction into the expansive world of C++.
