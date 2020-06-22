@@ -84,3 +84,32 @@ The star of this class is the ```void generateSpiralingData()``` member function
 Each point represents a region corresponding to a class, around which data is generated as previously described.
 
 As with the base class, this derived class also implements the Rule of Five, as the destructor is modified to take care of the heap allocated member ```int* labels```. These implementations are straight forward and similar to that of the base class and can be found in ```nntrainingdata.cpp``` for the definitions and ```nntrainingdata.h``` for the declarations.
+
+
+#### walker.h & walker.cpp
+
+The premise of this class is producing data points on a cartesion plane in a certain pattern, off of which training data is generated as described in the previous section. This class serves as the base class and comes with two member functions defined with the keyword ```virtual``` and they are ```void walk()``` and ```void reset()```. ```void walk()``` sets the ```int* currentPoint``` member to the next point in the patter, while ```void reset()``` resets the object to its initial states, that is, every member is reset to the beginning. Depending on the type of ```Walker``` object derived, the way the ```Walker``` walks and resets will differ depedning on the pattern implemented and the additional members needed to exercise the pattern. The rest of the member variables and member functions are self explanatory.
+
+#### spiralwalker.h & spiralwalker.cpp
+
+This class is derived from the ```Walker``` base class and is the driving force of the the ```void generateSpiralingData()``` member function of the ```NNTrainingData``` class. This class overrides the ```void walk()``` and ```void reset()``` member functions of the base class. Whereas the ```Walker``` walks by simpling incrementing both elements by 1, ```SpiralWalker``` walks by generating points in the pattern described in **nntrainingdata.h & nntrainingdata.cpp** section. Because this patterrn requires additional member variables, the ```void reset()``` function is updated to reset the additional member variables as well. The private member functions ```bool isStart()``` and ```endOfSide()``` are additional functions used in the walking pattern of ```SpiralWalker```.
+
+#### main.cpp
+
+This file contains the main function which serves as the driver for this application. It uses control flow to obtain necessary parameters, such as whether the user would like to generate data or load existing data, what kind of data to generate, how many samples, or if they user would like to save the generated data. To do this, this flow takes input from the user to obtain the parameters. Once the necessary parameters are gathered, the saved data (if specified) will become available and the data will be displayed. 
+
+#### nndatatest.h & nndatatest.cpp
+
+This implementation is the test version of the ```NNData``` class. Essentially this class strips the original of anything that involves the ```ChartView``` class to use in a test to ensure that the raw implementation without the GUI is intuitive and properly implements the Rule of Five. This means removing the ```std::shared_ptr<ChartView> chartView``` member variable and the ```void showData()``` member function.
+
+#### nntrainingdatatest.h & nntrainingdatatest.cpp
+
+This implementation is the test version of the ```NNTrainingData``` class. This class follows the same theme from which this class is derived, ```NNDataTest``` from the previous section, and strips anything involving ```ChartView```, for which this class is removing the ```void addClassDataToChart()``` private member function.
+
+#### test.cpp
+
+This is the final, but an important, file in the project. The sole purpose of this file is to check whether the Rule of Five is correctly implemented. This means after building the executable stemming from this file, the executable is run with **Valgrind**. **Valgrind** is a tool used to spot memory leaks. When run with the executable, the test runs without memory leaks, which shows that the Rule of Five. This can be done by running the following line after building the code:
+
+```valgrind --leak-check=yes ./test```
+
+The line produces a message that states all allocated memory were properly freed.
