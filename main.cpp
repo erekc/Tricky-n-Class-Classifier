@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
         int numSamples;
         int dimension = 2;
         if (dataSelection == 0){
-            std::cout << "How many samples would you like for your test data?" << std::endl;
+            std::cout << "How many samples would you like for your test data? (Please enter integer)" << std::endl;
             std::cin >> numSamples;
             NNData data = NNData(numSamples, dimension);
             if (loadIndication == 1){
@@ -110,9 +110,9 @@ int main(int argc, char *argv[])
         }
         else {
             int numClasses;
-            std::cout << "How many classes would you like?" << std::endl;
+            std::cout << "How many classes would you like? (Please enter integer)" << std::endl;
             std::cin >> numClasses;
-            std::cout << "How many samples would you like for each class for your training data?" << std::endl;
+            std::cout << "How many samples would you like for each class for your training data? (Please enter integer)" << std::endl;
             std::cin >> numSamples;
             NNTrainingData trainingData = NNTrainingData(numSamples, dimension, numClasses);
             if (loadIndication == 1){
