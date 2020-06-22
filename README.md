@@ -6,6 +6,8 @@ In exploring many of the project options, I decided to pursue one that stems fro
 
 ### Installation, Build, & Run
 
+**The instructions below assume that the project will be build using the Udacity student workspace.**
+
 To be able to display the graphs of the generated data, I needed a GUI that provided the capability of displaying charts. As a result, I chose the **Qt** open source library. In addition, to integrate this project into my next level of this project, I needed a library that enabled the use of matrix-like objects, which I found in the **xtensor** library. 
 
 To download **Qt**, use the following command:
