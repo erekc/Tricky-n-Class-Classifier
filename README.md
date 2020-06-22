@@ -43,6 +43,8 @@ git clone https://github.com/xtensor-stack/xtensor.git
 ```
 Then build and install the library as previously described.
 
+The two libraries described assume that they are installed in the default location, which is the ```/usr/local/include``` library. This is reflected in the ```cmake``` file.
+
 To build and run the project, first, clone this repository and head into the top level of the directory. The CMakeLists.txt already incorporates the libraries used in the project. The only change that may be needed is to make sure the path specified in ```CMAKE_PREFIX_PATH``` is ```/opt/Qt5.14.2/5.14.2/gcc_64/lib/cmake/``` or wherever the **Qt** library is installed. Once that is ensured, build and compile the directory with the regular protocols:
 ```
 mkdir build && cd build
