@@ -56,6 +56,18 @@ int main(int argc, char *argv[])
             inputFile.open(pathToLoad);
         }
         inputFile.close();
+        if (dataSelection == 0){
+            NNData data = NNData(0, 0);
+            data.loadFromFile(pathToLoad);
+            data.showData();
+            return a.exec();
+        }
+        else {
+            NNTrainingData trainingData = NNTrainingData(0, 0, 0);
+            trainingData.loadFromFile(pathToLoad);
+            trainingData.showData();
+            return a.exec();
+        }
     }
     if (loadIndication == 0){
         std::cout << "You have chosen not to load data. ";
@@ -78,44 +90,42 @@ int main(int argc, char *argv[])
             }
             outputFile.close();
         }
-
-    }
-
-    int numSamples;
-    int dimension = 2;
-    if (dataSelection == 0){
-        std::cout << "How many samples would you like for your test data?" << std::endl;
-        std::cin >> numSamples;
-        NNData data = NNData(numSamples, dimension);
-        if (loadIndication == 1){
-            data.loadFromFile(pathToLoad);
+        int numSamples;
+        int dimension = 2;
+        if (dataSelection == 0){
+            std::cout << "How many samples would you like for your test data?" << std::endl;
+            std::cin >> numSamples;
+            NNData data = NNData(numSamples, dimension);
+            if (loadIndication == 1){
+                data.loadFromFile(pathToLoad);
+            }
+            else {
+                data.generateData();
+                if (saveIndicator == 1){
+                    data.writeToFile(pathToSave);
+                }
+            }
+            data.showData();
+            return a.exec();
         }
         else {
-            data.generateData();
-            if (saveIndicator == 1){
-                data.writeToFile(pathToSave);
+            int numClasses;
+            std::cout << "How many classes would you like?" << std::endl;
+            std::cin >> numClasses;
+            std::cout << "How many samples would you like for each class for your training data?" << std::endl;
+            std::cin >> numSamples;
+            NNTrainingData trainingData = NNTrainingData(numSamples, dimension, numClasses);
+            if (loadIndication == 1){
+                trainingData.loadFromFile(pathToLoad);
             }
-        }
-        data.showData();
-        return a.exec();
-    }
-    else {
-        int numClasses;
-        std::cout << "How many classes would you like?" << std::endl;
-        std::cin >> numClasses;
-        std::cout << "How many samples would you like for each class for your training data?" << std::endl;
-        std::cin >> numSamples;
-        NNTrainingData trainingData = NNTrainingData(numSamples, dimension, numClasses);
-        if (loadIndication == 1){
-            trainingData.loadFromFile(pathToLoad);
-        }
-        else {
-            trainingData.generateSpiralingData(numClasses, numSamples);
-            if (saveIndicator == 1){
-                trainingData.writeToFile(pathToSave);
+            else {
+                trainingData.generateSpiralingData(numClasses, numSamples);
+                if (saveIndicator == 1){
+                    trainingData.writeToFile(pathToSave);
+                }
             }
+            trainingData.showData();
+            return a.exec();
         }
-        trainingData.showData();
-        return a.exec();
     }
 }

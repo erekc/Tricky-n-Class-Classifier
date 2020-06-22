@@ -7,6 +7,7 @@
 #include <memory>
 #include <random>
 #include <string>
+#include <set>
 #include "xtensor/xadapt.hpp"
 #include "xtensor/xbuilder.hpp"
 #include "xtensor/xview.hpp"

@@ -123,6 +123,7 @@ void NNData::loadFromFile(std::string filename){
         }
 
         inputFile.close();
+        this->chartView->addSeriesToList("nndata", *(this->data));
     }
     else{
         std::cout << "File could not be opened for reading. No data read." << std::endl;

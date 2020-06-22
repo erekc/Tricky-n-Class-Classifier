@@ -119,7 +119,6 @@ void NNTrainingData::addClassDataToChart(){
         classIndices.push_back(std::vector<double>());
     }
 
-
     for (int i = 0; i < this->numSamples; ++i){
         classIndices[this->labels[i]].push_back(i);
     }
@@ -168,6 +167,7 @@ void NNTrainingData::loadFromFile(std::string filename){
     inputFile.open(filename);
     if (inputFile.is_open()){
 
+        std::set<int> labelSet;
         std::getline(inputFile, line);
         std::istringstream ss(line);
         ss >> this->numSamples;
@@ -185,10 +185,13 @@ void NNTrainingData::loadFromFile(std::string filename){
             rowstream >> (*(this->data))(row, 0);
             rowstream >> (*(this->data))(row, 1);
             rowstream >> this->labels[row];
+            labelSet.insert(this->labels[row]);
             row++;
         }
 
         inputFile.close();
+        this->numClasses = static_cast<int>(labelSet.size());
+        this->addClassDataToChart();
     }
     else{
         std::cout << "File could not be opened for reading. No data read." << std::endl;
