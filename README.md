@@ -113,3 +113,91 @@ This is the final, but an important, file in the project. The sole purpose of th
 ```valgrind --leak-check=yes ./test```
 
 The line produces a message that states all allocated memory were properly freed.
+
+### Rubric Criteria
+
+#### Loops & Functions
+
+- The project demonstrates an understanding of C++ functions and control structures.
+    - ```nndata.cpp```
+    - ```nntrainingdata.cpp```
+    - ```spiralwalker.cpp```
+    - ```chartview.cpp```
+    - ```main.cpp```
+    
+- The project reads data from a file and process the data, or the program writes data to a file.
+    - ```nndata.cpp``` *line 89*
+    - ```nndata.cpp``` *line 108*
+    - ```nntrainingdata.cpp``` *line 146*
+    - ```nntrainingdata.cpp``` *line 165*
+    
+- The project accepts user input and processes the input.
+    - ```main.cpp``` *line 29 - 107*
+
+#### Object Oriented Programming
+
+- The project uses Object Oriented Programming techniques.
+    - ```nndata.cpp```
+    - ```nntrainingdata.cpp```
+    - ```spiralwalker.cpp```
+    - ```chartview.cpp```
+    
+- Classes use appropriate access specifiers for class members.
+    - ```nndata.cpp```
+    - ```nntrainingdata.cpp```
+    - ```spiralwalker.cpp```
+    - ```chartview.cpp```
+    
+- Class constructors utilize member initialization lists.
+    - ```nndata.cpp``` *line 3*
+    - ```nntrainingdata.cpp``` *line 6*
+    - ```nndatatest.cpp``` *line 3*
+    - ```nntrainingdatatest.cpp``` *line 6*
+    
+- Classes abstract implementation details from their interfaces.
+    - ```nndata.h```
+    - ```nntrainingdata.h```
+    - ```walker.h```
+    - ```spiralwalker.h```
+    
+- Classes encapsulate behavior
+    - ```nndata.h```
+    - ```nntrainingdata.h```
+    - ```walker.h```
+    - ```spiralwalker.h```
+    - ```chartview.h```
+    
+- Classes follow an appropriate inheritance hierarchy.
+    - ```nndata.h```
+    - ```nntrainingdata.h```
+    - ```walker.h```
+    - ```spiralwalker.h```
+    - ```chartView.h```
+    
+- Derived class functions override virtual base class functions.
+    - ```nndata.h``` *line 23-25*
+    - ```nntrainingdata.h``` *line 14*
+    - ```walker.h``` *line 10-11*
+    - ```spiralwalker.h``` *line 12-13*
+
+#### Memory Management
+
+- The project uses destructors appropriately.
+    - ```nndata.cpp``` *line 10*
+    - ```nntrainingdata.cpp``` *line 11*
+    - ```nndatatest.cpp``` *line 10*
+    - ```nntrainingdatatest.cpp``` *line 11*
+    
+- The project follows the Rule of 5.
+    - ```nndata.h```
+    - ```nndata.cpp```
+    - ```nntrainingdata.h```
+    - ```nntrainingdata.cpp```
+    - ```nndatatest.h```
+    - ```nndatatest.cpp```
+    - ```nntrainingdatatest.h```
+    - ```nntrainingdatatest.cpp```
+
+### Conclusion
+
+This project utilizes basic principles learned, such as dynamic memory and object oriented programming, to build a tool that can be used in future projects. Overall, I have been able to obtain a firm grasp of C++ programming and familiarize myself well with programming concepts.
