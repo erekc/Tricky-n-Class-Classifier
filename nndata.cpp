@@ -83,7 +83,6 @@ void NNData::generateData(){
 }
 
 void NNData::showData(){
-    this->chartView->plotChart();
     this->chartView->showChart();
 }
 

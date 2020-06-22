@@ -115,9 +115,7 @@ int main(int argc, char *argv[])
     }
 
     int numSamples;
-    int dimension;
-    std::cout << "What is the dimension of your data?" << std::endl;
-    std::cin >> dimension;
+    int dimension = 2;
     if (dataSelection == 0){
         std::cout << "How many samples would you like for your test data?" << std::endl;
         std::cin >> numSamples;
