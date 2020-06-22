@@ -108,11 +108,11 @@ This implementation is the test version of the ```NNTrainingData``` class. This 
 
 #### test.cpp
 
-This is the final, but an important, file in the project. The sole purpose of this file is to check whether the Rule of Five is correctly implemented. This means after building the executable stemming from this file, the executable is run with **Valgrind**. **Valgrind** is a tool used to spot memory leaks. When run with the executable, the test runs without memory leaks, which shows that the Rule of Five. This can be done by running the following line after building the code:
+This is the final, but an important, file in the project. The sole purpose of this file is to check whether the Rule of Five is correctly implemented. This means after building the executable stemming from this file, the executable is run with **Valgrind**. **Valgrind** is a tool used to spot memory leaks. When run with the executable, the test runs without memory leaks, which shows that the Rule of Five is implemented correctly. This can be done by running the following line after building the code:
 
 ```valgrind --leak-check=yes ./test```
 
-The line produces a message that states all allocated memory were properly freed.
+The line produces a message that states all allocated memory were properly freed. This test uses the test versions of the classes to ensure that my direct raw implementations are without fault.
 
 ### Rubric Criteria
 
