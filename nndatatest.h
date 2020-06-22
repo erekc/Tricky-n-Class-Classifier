@@ -27,6 +27,7 @@ protected:
     xt::xarray<double>* data;
     int numSamples;
     int dimension;
+    std::shared_ptr<int> testSharedMember;
 };
 
 #endif // NNDATATEST_H

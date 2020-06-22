@@ -1,7 +1,7 @@
 #include "nndatatest.h"
 
 NNDataTest::NNDataTest(int numSamples, int dimension) :
-    numSamples(numSamples), dimension(dimension){
+    numSamples(numSamples), dimension(dimension), testSharedMember(std::make_shared<int>(0)){
     std::vector<std::size_t> dataShape = {static_cast<size_t>(this->numSamples), static_cast<size_t>(this->dimension)};
     this->data = new xt::xarray<double, xt::layout_type::row_major>(dataShape);
     std::cout << "NNDataTest Constructor" << std::endl;
@@ -18,6 +18,7 @@ NNDataTest::NNDataTest(const NNDataTest& source){
     *(this->data) = *(source.data);
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
+    this->testSharedMember = source.testSharedMember;
     std::cout << "NNDataTest Copy Constructor" << std::endl;
 }
 
@@ -33,6 +34,7 @@ NNDataTest& NNDataTest::operator=(const NNDataTest &source){
     *(this->data) = *(source.data);
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
+    this->testSharedMember = source.testSharedMember;
     std::cout << "NNDataTest Copy Assignment" << std::endl;
 
     return *this;
@@ -42,6 +44,7 @@ NNDataTest::NNDataTest(NNDataTest&& source){
     this->data = source.data;
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
+    this->testSharedMember = source.testSharedMember;
     source.data = nullptr;
     source.dimension = 0;
     source.numSamples = 0;
@@ -58,6 +61,7 @@ NNDataTest& NNDataTest::operator=(NNDataTest&& source){
     this->data = source.data;
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
+    this->testSharedMember = source.testSharedMember;
     source.data = nullptr;
     source.dimension = 0;
     source.numSamples = 0;
