@@ -8,9 +8,7 @@ NNData::NNData(int numSamples, int dimension) :
 }
 
 NNData::~NNData(){
-    if (this->data){
-        delete this->data;
-    }
+    delete this->data;
     std::cout << "NNData Destructor" << std::endl;
 }
 
@@ -29,9 +27,7 @@ NNData& NNData::operator=(const NNData &source){
         return *this;
     }
 
-    if (this->data){
-        delete this->data;
-    }
+    delete this->data;
 
     std::vector<std::size_t> dataShape = {static_cast<size_t>(source.numSamples), static_cast<size_t>(source.dimension)};
     this->data = new xt::xarray<double, xt::layout_type::row_major>(dataShape);
@@ -60,9 +56,7 @@ NNData& NNData::operator=(NNData&& source){
         return *this;
     }
 
-    if (this->data){
-        delete this->data;
-    }
+    delete this->data;
 
     this->data = source.data;
     this->dimension = source.dimension;

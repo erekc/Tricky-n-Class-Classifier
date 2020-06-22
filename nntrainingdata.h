@@ -21,9 +21,11 @@ public:
     NNTrainingData& operator=(NNTrainingData&& source);
     void generateData() override;
     void generateSpiralingData(int classes, int dataPoints);
-    int* getLabels() { return this->labels; }
     void writeToFile(std::string filename) override;
     void loadFromFile(std::string filename) override;
+    int* getLabels() { return this->labels; }
+    int getNumClasses(){ return this->numClasses; };
+
 private:
     void addClassDataToChart();
     int* labels;

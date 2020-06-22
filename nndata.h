@@ -20,11 +20,14 @@ public:
     NNData& operator=(const NNData& source);
     NNData(NNData&& source);
     NNData& operator=(NNData&& source);
-    xt::xarray<double> getData(){ return *(this->data); }
     virtual void generateData();
-    void showData();
     virtual void writeToFile(std::string filename);
     virtual void loadFromFile(std::string filename);
+    void showData();
+    xt::xarray<double> getData(){ return *(this->data); }
+    int getNumSamples(){ return this->numSamples; };
+    int getDimension(){ return this->dimension; };
+
 protected:
     xt::xarray<double>* data;
     int numSamples;
