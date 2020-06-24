@@ -4,7 +4,7 @@ project(Tricky-n-Class-Classifier LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_PREFIX_PATH "/home/erekryo/Qt5.14.2/5.14.2/gcc_64/lib/cmake/")
+set(CMAKE_PREFIX_PATH "/opt/Qt5.14.2/5.14.2/gcc_64/lib/cmake/")
 set(xtensor_DIR "/usr/local/include")
 set(xtl_DIR "/usr/local/include")
 

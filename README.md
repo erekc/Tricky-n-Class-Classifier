@@ -6,6 +6,8 @@ In exploring many of the project options, I decided to pursue one that stems fro
 
 ### Installation, Build, & Run
 
+**The instructions below assume that the project will be build using the Udacity student workspace.**
+
 To be able to display the graphs of the generated data, I needed a GUI that provided the capability of displaying charts. As a result, I chose the **Qt** open source library. In addition, to integrate this project into my next level of this project, I needed a library that enabled the use of matrix-like objects, which I found in the **xtensor** library. 
 
 To download **Qt**, use the following command:
@@ -40,6 +42,8 @@ The process is identical for the **xtensor** library. First, clone **xtensor** r
 git clone https://github.com/xtensor-stack/xtensor.git
 ```
 Then build and install the library as previously described.
+
+The two libraries described assume that they are installed in the default location, which is the ```/usr/local/include``` library. This is reflected in the ```cmake``` file.
 
 To build and run the project, first, clone this repository and head into the top level of the directory. The CMakeLists.txt already incorporates the libraries used in the project. The only change that may be needed is to make sure the path specified in ```CMAKE_PREFIX_PATH``` is ```/opt/Qt5.14.2/5.14.2/gcc_64/lib/cmake/``` or wherever the **Qt** library is installed. Once that is ensured, build and compile the directory with the regular protocols:
 ```
