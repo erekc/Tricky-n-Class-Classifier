@@ -19,30 +19,25 @@ find_package(xtensor REQUIRED)
 find_package(xtl REQUIRED)
 find_package(Qt5 COMPONENTS Widgets Core Charts Gui REQUIRED)
 
+file(GLOB MAIN_SOURCES "src/main/*")
+file(GLOB TEST_SOURCES "src/test/*")
+file(GLOB COMMON_SOURCES "src/common/*")
+file(GLOB MAIN_HEADERS "headers/main/*")
+file(GLOB TEST_HEADERS "headers/test/*")
+file(GLOB COMMON_HEADERS "headers/common/*")
+
 add_executable(Tricky-n-Class-Classifier
-  main.cpp
-  chartview.cpp
-  chartview.h
-  nndata.cpp
-  nndata.h
-  nntrainingdata.cpp
-  nntrainingdata.h
-  walker.cpp
-  walker.h
-  spiralwalker.cpp
-  spiralwalker.h
+  ${MAIN_SOURCES}
+  ${COMMON_SOURCES}
+  ${MAIN_HEADERS}
+  ${COMMON_HEADERS}
 )
 
 add_executable(test
-    test.cpp
-    nndatatest.cpp
-    nndatatest.h
-    nntrainingdatatest.cpp
-    nntrainingdatatest.h
-    walker.cpp
-    walker.h
-    spiralwalker.cpp
-    spiralwalker.h
+    ${TEST_SOURCES}
+    ${TEST_HEADERS}
+    ${COMMON_SOURCES}
+    ${COMMON_HEADERS}
 )
 
 target_include_directories(Tricky-n-Class-Classifier PUBLIC ${xtensor_INCLUDE_DIRS})

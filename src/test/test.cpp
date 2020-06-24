@@ -1,5 +1,5 @@
-#include "nndatatest.h"
-#include "nntrainingdatatest.h"
+#include "../../headers/test/nndatatest.h"
+#include "../../headers/test/nntrainingdatatest.h"
 
 void acceptNNTrainingDataByValue(NNTrainingDataTest data){
     std::cout << "Accepted NNTrainingData by value" << std::endl;

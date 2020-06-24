@@ -2,7 +2,7 @@
 #define NNTRAININGDATATEST_H
 
 #include "nndatatest.h"
-#include "spiralwalker.h"
+#include "../common/spiralwalker.h"
 #include <cstdlib>
 #include <memory>
 #include <random>

@@ -1,28 +1,28 @@
-#include "nndata.h"
+#include "../../headers/test/nndatatest.h"
 
-NNData::NNData(int numSamples, int dimension) :
-    numSamples(numSamples), dimension(dimension), chartView(std::make_shared<ChartView>()){
+NNDataTest::NNDataTest(int numSamples, int dimension) :
+    numSamples(numSamples), dimension(dimension), testSharedMember(std::make_shared<int>(0)){
     std::vector<std::size_t> dataShape = {static_cast<size_t>(this->numSamples), static_cast<size_t>(this->dimension)};
     this->data = new xt::xarray<double, xt::layout_type::row_major>(dataShape);
-    std::cout << "NNData Constructor" << std::endl;
+    std::cout << "NNDataTest Constructor" << std::endl;
 }
 
-NNData::~NNData(){
+NNDataTest::~NNDataTest(){
     delete this->data;
-    std::cout << "NNData Destructor" << std::endl;
+    std::cout << "NNDataTest Destructor" << std::endl;
 }
 
-NNData::NNData(const NNData& source){
+NNDataTest::NNDataTest(const NNDataTest& source){
     std::vector<std::size_t> dataShape = {static_cast<size_t>(source.numSamples), static_cast<size_t>(source.dimension)};
     this->data = new xt::xarray<double, xt::layout_type::row_major>(dataShape);
     *(this->data) = *(source.data);
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
-    this->chartView = source.chartView;
-    std::cout << "NNData Copy Constructor" << std::endl;
+    this->testSharedMember = source.testSharedMember;
+    std::cout << "NNDataTest Copy Constructor" << std::endl;
 }
 
-NNData& NNData::operator=(const NNData &source){
+NNDataTest& NNDataTest::operator=(const NNDataTest &source){
     if (this == &source){
         return *this;
     }
@@ -34,24 +34,24 @@ NNData& NNData::operator=(const NNData &source){
     *(this->data) = *(source.data);
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
-    this->chartView = source.chartView;
-    std::cout << "NNData Copy Assignment" << std::endl;
+    this->testSharedMember = source.testSharedMember;
+    std::cout << "NNDataTest Copy Assignment" << std::endl;
 
     return *this;
 }
 
-NNData::NNData(NNData&& source){
+NNDataTest::NNDataTest(NNDataTest&& source){
     this->data = source.data;
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
-    this->chartView = source.chartView;
+    this->testSharedMember = source.testSharedMember;
     source.data = nullptr;
     source.dimension = 0;
     source.numSamples = 0;
-    std::cout << "NNData Move Constructor" << std::endl;
+    std::cout << "NNDataTest Move Constructor" << std::endl;
 }
 
-NNData& NNData::operator=(NNData&& source){
+NNDataTest& NNDataTest::operator=(NNDataTest&& source){
     if (this == &source){
         return *this;
     }
@@ -61,7 +61,7 @@ NNData& NNData::operator=(NNData&& source){
     this->data = source.data;
     this->dimension = source.dimension;
     this->numSamples = source.numSamples;
-    this->chartView = source.chartView;
+    this->testSharedMember = source.testSharedMember;
     source.data = nullptr;
     source.dimension = 0;
     source.numSamples = 0;
@@ -70,17 +70,11 @@ NNData& NNData::operator=(NNData&& source){
     return *this;
 }
 
-void NNData::generateData(){
+void NNDataTest::generateData(){
     *(this->data) = std::move(xt::random::randn<double>({this->numSamples, this->dimension}));
-    this->chartView->addSeriesToList("nndata", *(this->data));
-    this->chartView->setRubberBand(QChartView::RectangleRubberBand);
 }
 
-void NNData::showData(){
-    this->chartView->showChart();
-}
-
-void NNData::writeToFile(std::string filename){
+void NNDataTest::writeToFile(std::string filename){
     std::ofstream outputFile;
     outputFile.open(filename);
     if (outputFile.is_open()){
@@ -99,7 +93,7 @@ void NNData::writeToFile(std::string filename){
     }
 }
 
-void NNData::loadFromFile(std::string filename){
+void NNDataTest::loadFromFile(std::string filename){
     std::string line;
     std::ifstream inputFile;
     inputFile.open(filename);
@@ -123,7 +117,6 @@ void NNData::loadFromFile(std::string filename){
         }
 
         inputFile.close();
-        this->chartView->addSeriesToList("nndata", *(this->data));
     }
     else{
         std::cout << "File could not be opened for reading. No data read." << std::endl;

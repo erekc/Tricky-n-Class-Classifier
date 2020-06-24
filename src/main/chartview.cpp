@@ -1,4 +1,4 @@
-#include "chartview.h"
+#include "../../headers/main/chartview.h"
 
 void ChartView::addSeriesToList(std::string seriesName, xt::xarray<double>& dataPoints){
     std::unique_ptr<QScatterSeries> series = std::make_unique<QScatterSeries>();

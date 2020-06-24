@@ -1,4 +1,4 @@
-#include "walker.h"
+#include "../../headers/common/walker.h"
 
 void Walker::reset(){
     this->currentPoint[0] = 0;

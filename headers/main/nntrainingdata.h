@@ -2,7 +2,7 @@
 #define NNTRAININGDATA_H
 
 #include "nndata.h"
-#include "spiralwalker.h"
+#include "../common/spiralwalker.h"
 #include <cstdlib>
 #include <memory>
 #include <random>

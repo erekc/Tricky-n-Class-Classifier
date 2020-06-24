@@ -1,4 +1,4 @@
-#include "spiralwalker.h"
+#include "../../headers/common/spiralwalker.h"
 
 void SpiralWalker::reset(){
     this->currentPoint[0] = 0;

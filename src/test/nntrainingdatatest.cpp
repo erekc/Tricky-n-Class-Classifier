@@ -1,61 +1,61 @@
-#include "nntrainingdata.h"
+#include "../../headers/test/nntrainingdatatest.h"
 #include <typeinfo>
 #include <iostream>
 
 
-NNTrainingData::NNTrainingData(int numSamples, int dimension, int numClasses) :
-    NNData(numSamples, dimension), labels(new int[numSamples]), numClasses(numClasses) {
-    std::cout << "NNTrainingData Constructor" << std::endl;
+NNTrainingDataTest::NNTrainingDataTest(int numSamples, int dimension, int numClasses) :
+    NNDataTest(numSamples, dimension), labels(new int[numSamples]), numClasses(numClasses) {
+    std::cout << "NNTrainingDataTest Constructor" << std::endl;
 }
 
-NNTrainingData::~NNTrainingData(){
+NNTrainingDataTest::~NNTrainingDataTest(){
     delete[] this->labels;
-    std::cout << "NNTrainingData Destructor" << std::endl;
+    std::cout << "NNTrainingDataTest Destructor" << std::endl;
 }
 
-NNTrainingData::NNTrainingData(const NNTrainingData& source) : NNData(source){
+NNTrainingDataTest::NNTrainingDataTest(const NNTrainingDataTest& source) : NNDataTest(source){
     this->numClasses = source.numClasses;
     this->labels = new int[source.numSamples];
     std::memcpy(this->labels, source.labels, sizeof(int) * this->numSamples);
-    std::cout << "NNTrainingData Copy Constructor" << std::endl;
+    std::cout << "NNTrainingDataTest Copy Constructor" << std::endl;
 }
 
-NNTrainingData& NNTrainingData::operator=(const NNTrainingData& source){
+NNTrainingDataTest& NNTrainingDataTest::operator=(const NNTrainingDataTest& source){
     if (this == &source){
         return *this;
     }
-    NNData::operator=(source);
+    NNDataTest::operator=(source);
     delete[] this->labels;
     this->labels = new int[source.numSamples];
     std::memcpy(this->labels, source.labels, sizeof(int) * this->numSamples);
     this->numClasses = source.numClasses;
-    std::cout << "NNTrainingData Copy Assignment" << std::endl;
+    std::cout << "NNTrainingDataTest Copy Assignment" << std::endl;
     return *this;
 }
 
-NNTrainingData::NNTrainingData(NNTrainingData&& source) : NNData(std::move(source)){
+NNTrainingDataTest::NNTrainingDataTest(NNTrainingDataTest&& source) : NNDataTest(std::move(source)){
     this->numClasses = source.numClasses;
     this->labels = source.labels;
     source.labels = nullptr;
     source.numClasses = 0;
-    std::cout << "NNTrainingData Move Constructor" << std::endl;
+    std::cout << "NNTrainingDataTest Move Constructor" << std::endl;
 }
 
-NNTrainingData& NNTrainingData::operator=(NNTrainingData&& source){
+NNTrainingDataTest& NNTrainingDataTest::operator=(NNTrainingDataTest&& source){
     if (this == &source){
         return *this;
     }
-    NNData::operator=(std::move(source));
+    NNDataTest::operator=(std::move(source));
     delete[] this->labels;
     this->labels = source.labels;
     this->numClasses = source.numClasses;
     source.labels = nullptr;
     source.numClasses = 0;
-    std::cout << "NNTrainingData Move Assignment" << std::endl;
+    std::cout << "NNTrainingDataTest Move Assignment" << std::endl;
     return *this;
 }
 
-void NNTrainingData::generateData(){
+void NNTrainingDataTest::generateData(){
 
     std::default_random_engine generator;
     std::normal_distribution<double> distribution(0.0, 1.0);
@@ -72,12 +72,9 @@ void NNTrainingData::generateData(){
         }
         this->labels[i] = sum;
     }
-
-    this->addClassDataToChart();
-
 }
 
-void NNTrainingData::generateSpiralingData(int classes, int dataPoints){
+void NNTrainingDataTest::generateSpiralingData(int classes, int dataPoints){
 
     this->numClasses = classes;
     this->numSamples = dataPoints * classes;
@@ -109,40 +106,9 @@ void NNTrainingData::generateSpiralingData(int classes, int dataPoints){
         }
         spiralWalker.walk();
     }
-    this->addClassDataToChart();
 }
 
-void NNTrainingData::addClassDataToChart(){
-    std::vector<std::vector<double>> classIndices;
-
-    for (int i = 0; i < this->numClasses; ++i){
-        classIndices.push_back(std::vector<double>());
-    }
-
-    for (int i = 0; i < this->numSamples; ++i){
-        classIndices[this->labels[i]].push_back(i);
-    }
-
-    for (int i = 0; i < this->numClasses; ++i){
-        std::vector<double> indices = classIndices[i];
-
-        std::vector<std::size_t> classSeriesShape = {static_cast<size_t>(indices.size()), static_cast<size_t>(this->dimension)};
-        xt::xarray<double, xt::layout_type::row_major> classSeries = xt::xarray<double, xt::layout_type::row_major>(classSeriesShape);
-
-        int sum = 0;
-        for (size_t j = 0; j < indices.size(); ++j){
-            auto row = xt::row(*(this->data), indices[j]);
-            for (int k = 0; k < this->dimension; ++k){
-                classSeries(j, k) = row(0, k);
-            }
-            sum += 1;
-        }
-        this->chartView->addSeriesToList("class" + std::to_string(i), classSeries);
-    }
-    this->chartView->setRubberBand(QChartView::RectangleRubberBand);
-}
-
-void NNTrainingData::writeToFile(std::string filename){
+void NNTrainingDataTest::writeToFile(std::string filename){
     std::ofstream outputFile;
     outputFile.open(filename);
     if (outputFile.is_open()){
@@ -161,13 +127,12 @@ void NNTrainingData::writeToFile(std::string filename){
     }
 }
 
-void NNTrainingData::loadFromFile(std::string filename){
+void NNTrainingDataTest::loadFromFile(std::string filename){
     std::string line;
     std::ifstream inputFile;
     inputFile.open(filename);
     if (inputFile.is_open()){
 
-        std::set<int> labelSet;
         std::getline(inputFile, line);
         std::istringstream ss(line);
         ss >> this->numSamples;
@@ -185,13 +150,10 @@ void NNTrainingData::loadFromFile(std::string filename){
             rowstream >> (*(this->data))(row, 0);
             rowstream >> (*(this->data))(row, 1);
             rowstream >> this->labels[row];
-            labelSet.insert(this->labels[row]);
             row++;
         }
 
         inputFile.close();
-        this->numClasses = static_cast<int>(labelSet.size());
-        this->addClassDataToChart();
     }
     else{
         std::cout << "File could not be opened for reading. No data read." << std::endl;

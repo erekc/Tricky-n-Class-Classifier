@@ -1,8 +1,8 @@
-#include "chartview.h"
-#include "nndata.h"
-#include "nntrainingdata.h"
-#include "walker.h"
-#include "spiralwalker.h"
+#include "../../headers/main/chartview.h"
+#include "../../headers/main/nndata.h"
+#include "../../headers/main/nntrainingdata.h"
+#include "../../headers/common/walker.h"
+#include "../../headers/common/spiralwalker.h"
 
 QT_CHARTS_USE_NAMESPACE
 
