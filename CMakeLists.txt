@@ -4,7 +4,7 @@ project(Tricky-n-Class-Classifier LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_PREFIX_PATH "/opt/Qt5.14.2/5.14.2/gcc_64/lib/cmake/")
+set(CMAKE_PREFIX_PATH "/home/erekryo/Qt5.14.2/5.14.2/gcc_64/lib/cmake/")
 set(xtensor_DIR "/usr/local/include")
 set(xtl_DIR "/usr/local/include")
 
@@ -39,6 +39,16 @@ add_executable(test
     ${COMMON_SOURCES}
     ${COMMON_HEADERS}
 )
+
+add_subdirectory(thirdparty/googletest)
+
+add_executable(utest
+  test/utest_datagen.cpp
+  ${COMMON_SOURCES}
+  ${COMMON_HEADERS}
+)
+
+target_link_libraries(utest gtest_main)
 
 target_include_directories(Tricky-n-Class-Classifier PUBLIC ${xtensor_INCLUDE_DIRS})
 target_link_libraries(Tricky-n-Class-Classifier PUBLIC xtensor PRIVATE Qt5::Core Qt5::Widgets Qt5::Charts Qt5::Gui)
