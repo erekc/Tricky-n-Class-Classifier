@@ -22,6 +22,7 @@ public:
     NNTrainingData& operator=(NNTrainingData&& source);
     void generateData() override;
     void generateSpiralingData(int classes, int dataPoints);
+    void generate2DThreeClassXORData();
     void writeToFile(std::string filename) override;
     void loadFromFile(std::string filename) override;
     int* getLabels() { return this->labels; }

@@ -119,7 +119,9 @@ int main(int argc, char *argv[])
                 trainingData.loadFromFile(pathToLoad);
             }
             else {
-                trainingData.generateSpiralingData(numClasses, numSamples);
+                // trainingData.generateSpiralingData(numClasses, numSamples);
+                // trainingData.generateData();
+                trainingData.generate2DThreeClassXORData();
                 if (saveIndicator == 1){
                     trainingData.writeToFile(pathToSave);
                 }

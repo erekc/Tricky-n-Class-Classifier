@@ -112,6 +112,57 @@ void NNTrainingData::generateSpiralingData(int classes, int dataPoints){
     this->addClassDataToChart();
 }
 
+void NNTrainingData::generate2DThreeClassXORData(){
+    std::default_random_engine generator;
+    std::normal_distribution<double> distribution(0.0, 1.0);
+
+    this->dimension = 2;
+    this->numClasses = 3;
+
+    delete[] this->labels;
+    this->labels = new int[this->numSamples];
+
+    delete this->data;
+    std::vector<std::size_t> dataShape = {static_cast<size_t>(this->numSamples), 2};
+    this->data = new xt::xarray<double, xt::layout_type::row_major>(dataShape);
+
+    for (int i = 0; i < this->numSamples; ++i)
+    {
+        int sum = 0;
+        for (int j = 0; j < this->dimension; ++j)
+        {
+            int x = rand() % 2;
+            sum += x;
+            (*(this->data))(i, j) = 1.0 * x + 0.20 * distribution(generator);
+        }
+        this->labels[i] = sum;
+    }
+
+    for (int i = 0; i < static_cast<int>(this->numSamples * 0.25); ++i)
+    {
+        int randomIndex = rand() % this->numSamples;
+        (*(this->data))(randomIndex, 0) = 1.5 + 0.20 * distribution(generator);
+        (*(this->data))(randomIndex, 1) = 1.5 + 0.20 * distribution(generator);
+        this->labels[randomIndex] = 0;
+    }
+
+    for (int i = 0; i < static_cast<int>(this->numSamples * 0.25); ++i)
+    {
+        int randomIndex = rand() % this->numSamples;
+        (*(this->data))(randomIndex, 0) = 0.5 + 0.20 * distribution(generator);
+        (*(this->data))(randomIndex, 1) = -0.75 + 0.20 * distribution(generator);
+        this->labels[randomIndex] = 2;
+    }
+
+    auto x1Col = xt::view(*(this->data), xt::all(), 0);
+    auto x2Col = xt::view(*(this->data), xt::all(), 1);
+
+    x1Col = (x1Col - xt::mean(x1Col, 0)) / xt::stddev(x1Col, 0);
+    x2Col = (x2Col - xt::mean(x2Col, 0)) / xt::stddev(x2Col, 0);
+
+    this->addClassDataToChart();
+}
+
 void NNTrainingData::addClassDataToChart(){
     std::vector<std::vector<double>> classIndices;
 
